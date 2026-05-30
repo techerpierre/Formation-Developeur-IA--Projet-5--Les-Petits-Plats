@@ -11,11 +11,9 @@ const UstensilsData: Ustensil[] = Array.from(
 export class UstensilJSONRepository implements UstensilAdapter {
   public async list(query?: UstensilSearchQuery): Promise<Ustensil[]> {
     let results = UstensilsData;
-
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-
     return results;
   }
 

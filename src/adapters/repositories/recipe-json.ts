@@ -6,17 +6,19 @@ type RecipeSearchFilterFunction = (r: Recipe) => boolean;
 
 export class RecipeJSONRepository implements RecipeAdapter {
   public async list(query?: RecipeSearchQuery): Promise<Recipe[]> {
-    let results = RecipesData;
-
+    let results = RecipesData.map(this.mapRecipe);
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-
     return results;
   }
 
   public async findBySlug(slug: string): Promise<Recipe | null> {
-    return RecipesData.find((r) => r.slug === slug) ?? null;
+    const result = RecipesData.find((r) => r.slug === slug);
+    if (!result) {
+      return null;
+    }
+    return this.mapRecipe(result);
   }
 
   private createSearchFilter(
@@ -69,6 +71,13 @@ export class RecipeJSONRepository implements RecipeAdapter {
       }
 
       return true;
+    };
+  }
+
+  private mapRecipe(recipe: any): Recipe {
+    return {
+      ...recipe,
+      image: `/images/${recipe.image}`,
     };
   }
 }

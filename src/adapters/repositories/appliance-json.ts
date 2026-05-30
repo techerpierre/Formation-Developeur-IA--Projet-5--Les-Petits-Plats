@@ -11,11 +11,9 @@ const AppliancesData: Appliance[] = Array.from(
 export class ApplianceJSONRepository implements ApplianceAdapter {
   public async list(query?: ApplianceSearchQuery): Promise<Appliance[]> {
     let results = AppliancesData;
-
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-
     return results;
   }
 

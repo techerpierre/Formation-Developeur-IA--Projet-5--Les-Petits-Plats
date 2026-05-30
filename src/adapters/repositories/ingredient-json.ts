@@ -11,11 +11,9 @@ const IngredientsData: Ingredient[] = Array.from(
 export class IngredientJSONRepository implements IngredientAdapter {
   public async list(query?: IngredientSearchQuery): Promise<Ingredient[]> {
     let results = IngredientsData;
-
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-
     return results;
   }
 
