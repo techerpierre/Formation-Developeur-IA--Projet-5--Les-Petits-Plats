@@ -1,0 +1,13 @@
+.recipeListPlaceholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipeListPlaceholderTitle {
+  font-family: anton;
+  font-size: 24px;
+  text-align: center;
+  color: var(--on-background);
+}

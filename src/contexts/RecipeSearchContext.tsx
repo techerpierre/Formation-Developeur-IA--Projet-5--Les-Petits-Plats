@@ -1,13 +1,18 @@
 'use client';
 
-import { RecipeSearchQuery } from '@/core/domain/recipe';
+import {
+  RecipeSearchQuery,
+  RecipeSearchQueryTagField,
+} from '@/core/domain/recipe';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 export type RecipeSearchContextType = {
   query: RecipeSearchQuery;
-  setQuery: (newQuery: RecipeSearchQuery) => void;
+  removeTag: (field: RecipeSearchQueryTagField, value: string) => void;
+  addTag: (field: RecipeSearchQueryTagField, value: string) => void;
+  setGlobalQuery: (globalQuery: string) => void;
 };
 
 export const RecipeSearchContext = createContext<
@@ -19,15 +24,15 @@ export function RecipeSearchProvider({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [query, setQuery] = useState<RecipeSearchQuery>({
+  const [query, setQueryState] = useState<RecipeSearchQuery>({
     globalQuery: searchParams.get('q') ?? undefined,
     appliances: searchParams.getAll('appliances'),
     ingredients: searchParams.getAll('ingredients'),
     ustensils: searchParams.getAll('ustensils'),
   });
 
-  const setQueryFn = (newQuery: RecipeSearchQuery) => {
-    setQuery(newQuery);
+  const setQuery = (newQuery: RecipeSearchQuery) => {
+    setQueryState(newQuery);
     const params = new URLSearchParams();
 
     if (newQuery.globalQuery) params.set('q', newQuery.globalQuery);
@@ -39,11 +44,34 @@ export function RecipeSearchProvider({ children }: PropsWithChildren) {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  const removeTag = (field: RecipeSearchQueryTagField, value: string) => {
+    setQuery({
+      ...query,
+      [field]: (query[field] ?? []).filter((item) => item !== value),
+    });
+  };
+
+  const addTag = (field: RecipeSearchQueryTagField, value: string) => {
+    setQuery({
+      ...query,
+      [field]: [...(query[field] ?? []), value],
+    });
+  };
+
+  const setGlobalQuery = (globalQuery: string) => {
+    setQuery({
+      ...query,
+      globalQuery,
+    });
+  };
+
   return (
     <RecipeSearchContext
       value={{
         query,
-        setQuery: setQueryFn,
+        removeTag,
+        addTag,
+        setGlobalQuery,
       }}
     >
       {children}

@@ -2,6 +2,12 @@
   padding-top: 40px;
   padding-bottom: 40px;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topRow {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -15,4 +21,10 @@
   font-family: anton;
   font-weight: 400;
   font-size: 21px;
+}
+
+.selectedTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }

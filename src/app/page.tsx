@@ -10,9 +10,10 @@ import { ensureArray, ensureString } from '@/libs/utils';
 
 export default async function Home(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
+  const globalQuery = ensureString(searchParams.q);
 
   const { results: recipes, count: recipesCount } = await core.recipe.list({
-    globalQuery: ensureString(searchParams.q),
+    globalQuery,
     ingredients: ensureArray(searchParams.ingredients),
     appliances: ensureArray(searchParams.appliances),
     ustensils: ensureArray(searchParams.ustensils),
@@ -31,7 +32,7 @@ export default async function Home(props: { searchParams: SearchParams }) {
         </div>
       </Header>
       <TagSearch recipeResultsCount={recipesCount} />
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes} searchQuery={globalQuery} />
     </RecipeSearchProvider>
   );
 }

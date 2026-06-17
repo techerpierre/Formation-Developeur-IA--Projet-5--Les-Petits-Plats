@@ -6,20 +6,22 @@ import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
 export function SearchBar() {
-  const { query, setQuery } = useRecipeSearch();
+  const { query, setGlobalQuery } = useRecipeSearch();
   const [inputValue, setInputValue] = useState(query.globalQuery ?? '');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
 
     if (value.length >= 3 || value.length == 0) {
-      setQuery({
-        ...query,
-        globalQuery: value,
-      });
+      setGlobalQuery(value);
     }
 
     setInputValue(value);
+  };
+
+  const handleClearButtonClicked = () => {
+    setGlobalQuery('');
+    setInputValue('');
   };
 
   return (
@@ -30,6 +32,16 @@ export function SearchBar() {
         value={inputValue}
         onChange={handleInputChange}
       />
+      {inputValue.length > 0 && (
+        <button
+          type="button"
+          className={styles.searchBarClear}
+          onClick={handleClearButtonClicked}
+          aria-label="Vider la recherche"
+        >
+          <Image src="/icons/x-2.svg" alt="Vider" width={13} height={13} />
+        </button>
+      )}
       <div className={styles.searchBarSubmit}>
         <Image
           src="/icons/search.svg"

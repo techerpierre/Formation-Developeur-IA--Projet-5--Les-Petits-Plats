@@ -6,22 +6,36 @@ import styles from './ComboBox.module.css';
 import clsx from '@/libs/clsx';
 import { ComboBoxSearchBar } from './ComboBoxSearchBar';
 
+type ItemWithSelected = {
+  item: string;
+  isSelected: boolean;
+};
+
 export type ComboBoxProps = {
   label: string;
   items: string[];
   pending?: boolean;
+  isItemSelected?: (item: string) => boolean;
   onSearch: (searchQuery: string) => void;
   onItemSelected: (item: string) => void;
+  onItemRemoved: (item: string) => void;
 };
 
 export function ComboBox({
   label,
   items,
+  isItemSelected,
   pending = false,
   onSearch,
   onItemSelected,
+  onItemRemoved,
 }: ComboBoxProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const itemsWithSelected: ItemWithSelected[] = items.map((item) => ({
+    item,
+    isSelected: isItemSelected?.(item) ?? false,
+  }));
 
   useEffect(() => {
     onSearch('');
@@ -34,6 +48,14 @@ export function ComboBox({
   const handleItemClick = (item: string) => {
     return () => {
       onItemSelected(item);
+      setIsOpen(false);
+    };
+  };
+
+  const handleItemRemove = (item: string) => {
+    return (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      onItemRemoved(item);
     };
   };
 
@@ -54,14 +76,34 @@ export function ComboBox({
           <ComboBoxSearchBar onSearch={onSearch} />
         </div>
         <div className={styles.comboBoxItems}>
-          {items.map((item) => (
-            <button
+          {itemsWithSelected.map(({ item, isSelected }) => (
+            <div
               key={item}
-              className={styles.comboBoxItem}
-              onClick={handleItemClick(item)}
+              className={clsx(
+                styles.comboBoxItem,
+                isSelected && styles.comboBoxItemSelected
+              )}
             >
-              {item}
-            </button>
+              <button
+                className={styles.comboBoxItemLabel}
+                onClick={handleItemClick(item)}
+              >
+                {item}
+              </button>
+              {isSelected && (
+                <button
+                  className={styles.comboBoxItemRemoveButton}
+                  onClick={handleItemRemove(item)}
+                >
+                  <Image
+                    src="icons/x-circle.svg"
+                    alt="X"
+                    width={17}
+                    height={17}
+                  />
+                </button>
+              )}
+            </div>
           ))}
         </div>
       </div>

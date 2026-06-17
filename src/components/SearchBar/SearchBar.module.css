@@ -23,6 +23,16 @@
   color: var(--on-surface-3);
 }
 
+.searchBarClear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+
 .searchBarSubmit {
   background-color: var(--secondary);
   margin: 10px;

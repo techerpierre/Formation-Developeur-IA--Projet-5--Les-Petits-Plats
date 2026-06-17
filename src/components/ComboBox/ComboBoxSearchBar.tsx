@@ -37,7 +37,9 @@ export function ComboBoxSearchBar({ onSearch }: ComboBoxSearchBarProps) {
           <Image src="icons/x.svg" alt="X" width={6} height={6} />
         </button>
       )}
-      <Image src="icons/search-2.svg" alt="Search" width={14} height={14} />
+      <div className={styles.searchIcon}>
+        <Image src="icons/search-2.svg" alt="Search" width={14} height={14} />
+      </div>
     </div>
   );
 }

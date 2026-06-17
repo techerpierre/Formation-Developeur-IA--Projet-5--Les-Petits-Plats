@@ -59,15 +59,40 @@
 }
 
 .comboBoxItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comboBoxItemLabel {
+  flex: 1;
   padding: 10px 15px;
   background: none;
   border: none;
   text-align: start;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.comboBoxItemSelected {
+  background-color: var(--primary);
+  color: var(--on-primary);
 }
 
 .comboBoxItem:hover {
   background-color: var(--primary);
   color: var(--on-primary);
+}
+
+.comboBoxItemRemoveButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .searchBarContainer {
