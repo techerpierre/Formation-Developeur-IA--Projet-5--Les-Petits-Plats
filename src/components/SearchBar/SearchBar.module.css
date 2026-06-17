@@ -1,0 +1,34 @@
+.searchBar {
+  height: 72px;
+  border-radius: 11px;
+  background-color: var(--surface);
+  width: 100%;
+  max-width: 954px;
+  display: flex;
+  overflow: hidden;
+}
+
+.searchBar:has(.searchBarInput:focus) {
+  outline: solid 3px black;
+}
+
+.searchBarInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 30px;
+}
+
+.searchBar::placeholder {
+  color: var(--on-surface-3);
+}
+
+.searchBarSubmit {
+  background-color: var(--secondary);
+  margin: 10px;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}

@@ -2,6 +2,7 @@ import { Anton, Manrope } from 'next/font/google';
 import type { Metadata } from 'next';
 import './globals.css';
 import clsx from '@/libs/clsx';
+import { Footer } from '@/components/Footer/Footer';
 
 const anton = Anton({
   weight: '400',
@@ -25,7 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={clsx(anton.className, manrope.className)}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

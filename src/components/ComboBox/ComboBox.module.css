@@ -1,0 +1,75 @@
+.comboBox {
+  position: relative;
+  width: 195px;
+  height: 56px;
+}
+
+.comboBoxButton {
+  background-color: var(--surface);
+  border: none;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 11px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.comboBoxButtonChevron {
+  transition: transform 0.2s ease;
+}
+
+.comboBox.open .comboBoxButton {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.comboBox.open .comboBoxButtonChevron {
+  transform: rotate(180deg);
+}
+
+.comboBoxContent {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 259px;
+  overflow: hidden;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+  background-color: var(--surface);
+  z-index: 2;
+}
+
+.comboBox:not(.open) .comboBoxContent {
+  display: none;
+}
+
+.comboBoxItems {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.comboBoxItem {
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  text-align: start;
+}
+
+.comboBoxItem:hover {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.searchBarContainer {
+  padding: 10px 15px;
+}

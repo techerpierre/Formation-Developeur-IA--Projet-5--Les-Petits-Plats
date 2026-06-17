@@ -1,11 +1,25 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
 :root {
+  --background: hsla(0, 0%, 93%, 1);
+
   --primary: hsla(43, 100%, 68%, 1);
   --on-primary: hsla(0, 0%, 0%, 1);
+
+  --secondary: hsla(0, 0%, 10%, 1);
+  --on-secondary: hsla(0, 0%, 100%, 1);
 
   --surface: hsla(0, 0%, 100%, 1);
   --on-surface: hsla(0, 0%, 0%, 1);
   --on-surface-2: hsla(0, 0%, 10%, 1);
   --on-surface-3: hsla(0, 0%, 48%, 1);
+  --on-surface-4: hsla(0, 0%, 77%, 1);
+
+  --max-width: 1440px;
 }
 
 html {
@@ -17,6 +31,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: manrope;
+  background-color: var(--background);
 }
 
 body {

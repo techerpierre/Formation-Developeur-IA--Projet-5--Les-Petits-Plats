@@ -1,3 +1,4 @@
+import { Listed } from '@/core/domain/common';
 import { UstensilSearchQuery, Ustensil } from '@/core/domain/ustensil';
 import { UstensilAdapter } from '@/core/ports/repositories';
 import RecipesData from '@/data/recipes.json';
@@ -9,12 +10,15 @@ const UstensilsData: Ustensil[] = Array.from(
 ).map((u) => ({ name: u }));
 
 export class UstensilJSONRepository implements UstensilAdapter {
-  public async list(query?: UstensilSearchQuery): Promise<Ustensil[]> {
+  public async list(query?: UstensilSearchQuery): Promise<Listed<Ustensil>> {
     let results = UstensilsData;
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-    return results;
+    return {
+      results,
+      count: results.length,
+    };
   }
 
   private createSearchFilter(

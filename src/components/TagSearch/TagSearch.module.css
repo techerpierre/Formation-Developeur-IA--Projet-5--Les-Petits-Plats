@@ -1,0 +1,18 @@
+.section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tagSelectors {
+  display: flex;
+  gap: 20px;
+}
+
+.recipeResultsCount {
+  font-family: anton;
+  font-weight: 400;
+  font-size: 21px;
+}

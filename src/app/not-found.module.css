@@ -1,5 +1,6 @@
 .header {
-  height: 667px;
+    height: calc(100vh - 138px);
+    margin-bottom: -40px;
 }
 
 .heroContent {
@@ -11,10 +12,17 @@
   height: 100%;
 }
 
-.heroTitle {
+.notFoundMessage {
   font-family: anton;
-  font-size: 44px;
+  font-size: 70px;
   text-align: center;
   color: var(--primary);
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+.notFoundText {
+    font-family: anton;
+  font-size: 40px;
+  text-align: center;
+  color: white;
 }

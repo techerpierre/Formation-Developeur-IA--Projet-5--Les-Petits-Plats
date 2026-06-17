@@ -1,3 +1,4 @@
+import { Listed } from '@/core/domain/common';
 import { Recipe, RecipeSearchQuery } from '@/core/domain/recipe';
 import { RecipeAdapter } from '@/core/ports/repositories';
 import RecipesData from '@/data/recipes.json';
@@ -5,12 +6,15 @@ import RecipesData from '@/data/recipes.json';
 type RecipeSearchFilterFunction = (r: Recipe) => boolean;
 
 export class RecipeJSONRepository implements RecipeAdapter {
-  public async list(query?: RecipeSearchQuery): Promise<Recipe[]> {
+  public async list(query?: RecipeSearchQuery): Promise<Listed<Recipe>> {
     let results = RecipesData.map(this.mapRecipe);
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-    return results;
+    return {
+      results,
+      count: results.length,
+    };
   }
 
   public async findBySlug(slug: string): Promise<Recipe | null> {

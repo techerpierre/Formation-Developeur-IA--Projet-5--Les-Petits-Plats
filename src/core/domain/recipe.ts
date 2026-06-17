@@ -21,3 +21,8 @@ export type RecipeSearchQuery = {
   ustensils?: string[];
   globalQuery?: string;
 };
+
+export type RecipeSearchQueryTagField = Exclude<
+  keyof RecipeSearchQuery,
+  'globalQuery'
+>;

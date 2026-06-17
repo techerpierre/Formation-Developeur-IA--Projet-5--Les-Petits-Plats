@@ -1,4 +1,5 @@
 import { ApplianceSearchQuery, Appliance } from '@/core/domain/appliance';
+import { Listed } from '@/core/domain/common';
 import { ApplianceAdapter } from '@/core/ports/repositories';
 import RecipesData from '@/data/recipes.json';
 
@@ -9,12 +10,15 @@ const AppliancesData: Appliance[] = Array.from(
 ).map((a) => ({ name: a }));
 
 export class ApplianceJSONRepository implements ApplianceAdapter {
-  public async list(query?: ApplianceSearchQuery): Promise<Appliance[]> {
+  public async list(query?: ApplianceSearchQuery): Promise<Listed<Appliance>> {
     let results = AppliancesData;
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-    return results;
+    return {
+      results,
+      count: results.length,
+    };
   }
 
   private createSearchFilter(

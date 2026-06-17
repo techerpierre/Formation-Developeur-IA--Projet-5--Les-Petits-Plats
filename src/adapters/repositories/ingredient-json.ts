@@ -1,3 +1,4 @@
+import { Listed } from '@/core/domain/common';
 import { IngredientSearchQuery, Ingredient } from '@/core/domain/ingredient';
 import { IngredientAdapter } from '@/core/ports/repositories';
 import RecipesData from '@/data/recipes.json';
@@ -9,12 +10,17 @@ const IngredientsData: Ingredient[] = Array.from(
 ).map((i) => ({ name: i }));
 
 export class IngredientJSONRepository implements IngredientAdapter {
-  public async list(query?: IngredientSearchQuery): Promise<Ingredient[]> {
+  public async list(
+    query?: IngredientSearchQuery
+  ): Promise<Listed<Ingredient>> {
     let results = IngredientsData;
     if (query) {
       results = results.filter(this.createSearchFilter(query));
     }
-    return results;
+    return {
+      results,
+      count: results.length,
+    };
   }
 
   private createSearchFilter(
