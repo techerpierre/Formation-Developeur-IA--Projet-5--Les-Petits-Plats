@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
 import styles from './RecipeListPlaceholder.module.css';
-import { useRecipeSearch } from '@/contexts/RecipeSearchContext';
 import { Section } from '../Section/Section';
 
 export type RecipeListPlaceholderProps = PropsWithChildren & {
