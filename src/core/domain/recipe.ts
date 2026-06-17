@@ -11,8 +11,14 @@ export type Recipe = {
   }[];
   time: number;
   description: string;
-  appliance: string;
-  ustensils: string[];
+  appliance: {
+    name: string;
+    quantity?: number;
+  }[];
+  ustensils: {
+    name: string;
+    quantity?: number;
+  }[];
 };
 
 export type RecipeSearchQuery = {

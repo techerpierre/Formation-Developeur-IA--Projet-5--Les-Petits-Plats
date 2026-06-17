@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import core from '@/core';
 import { Appliance, ApplianceSearchQuery } from '@/core/domain/appliance';

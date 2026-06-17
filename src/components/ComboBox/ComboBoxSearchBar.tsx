@@ -30,7 +30,10 @@ export function ComboBoxSearchBar({ onSearch }: ComboBoxSearchBarProps) {
         onChange={handleValueChange}
       />
       {currentSearch.length > 0 && (
-        <button className={styles.resetButton} onClick={handleResetButtonClicked}>
+        <button
+          className={styles.resetButton}
+          onClick={handleResetButtonClicked}
+        >
           <Image src="icons/x.svg" alt="X" width={6} height={6} />
         </button>
       )}

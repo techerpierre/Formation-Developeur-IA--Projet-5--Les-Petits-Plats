@@ -6,7 +6,7 @@ import RecipesData from '@/data/recipes.json';
 type UstensilSearchFilterFunction = (u: Ustensil) => boolean;
 
 const UstensilsData: Ustensil[] = Array.from(
-  new Set(RecipesData.flatMap((r) => r.ustensils))
+  new Set(RecipesData.flatMap((r) => r.ustensils.map((u) => u.name)))
 ).map((u) => ({ name: u }));
 
 export class UstensilJSONRepository implements UstensilAdapter {

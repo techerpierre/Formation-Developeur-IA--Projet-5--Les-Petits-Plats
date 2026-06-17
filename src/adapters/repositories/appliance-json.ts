@@ -6,7 +6,7 @@ import RecipesData from '@/data/recipes.json';
 type ApplianceSearchFilterFunction = (a: Appliance) => boolean;
 
 const AppliancesData: Appliance[] = Array.from(
-  new Set(RecipesData.map((r) => r.appliance))
+  new Set(RecipesData.flatMap((r) => r.appliance.map((a) => a.name)))
 ).map((a) => ({ name: a }));
 
 export class ApplianceJSONRepository implements ApplianceAdapter {

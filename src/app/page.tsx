@@ -6,11 +6,16 @@ import { RecipeList } from '@/components/RecipeList/RecipeList';
 import { SearchParams } from '@/libs/types';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { TagSearch } from '@/components/TagSearch/TagSearch';
+import { ensureArray, ensureString } from '@/libs/utils';
 
 export default async function Home(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
+
   const { results: recipes, count: recipesCount } = await core.recipe.list({
-    globalQuery: searchParams.q?.toString(),
+    globalQuery: ensureString(searchParams.q),
+    ingredients: ensureArray(searchParams.ingredients),
+    appliances: ensureArray(searchParams.appliances),
+    ustensils: ensureArray(searchParams.ustensils),
   });
 
   return (

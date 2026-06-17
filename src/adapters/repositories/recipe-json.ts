@@ -29,12 +29,12 @@ export class RecipeJSONRepository implements RecipeAdapter {
     query: RecipeSearchQuery
   ): RecipeSearchFilterFunction {
     return (r: Recipe) => {
-      // Check ingredients tags
+      // Check ingredients tags (strict: recipe must contain ALL selected ingredients)
       if (query.ingredients?.length) {
         if (
-          !r.ingredients.filter((i) =>
-            query.ingredients!.includes(i.ingredient)
-          ).length
+          !query.ingredients.every((ing) =>
+            r.ingredients.some((i) => i.ingredient === ing)
+          )
         ) {
           return false;
         }
@@ -42,14 +42,20 @@ export class RecipeJSONRepository implements RecipeAdapter {
 
       // Check appliance tags
       if (query.appliances?.length) {
-        if (!query.appliances.includes(r.appliance)) {
+        if (
+          !r.appliance.filter((a) => query.appliances!.includes(a.name)).length
+        ) {
           return false;
         }
       }
 
-      // Check appliance tags
+      // Check ustensil tags (strict: recipe must contain ALL selected ustensils)
       if (query.ustensils?.length) {
-        if (!r.ustensils.filter((u) => query.ustensils!.includes(u)).length) {
+        if (
+          !query.ustensils.every((ust) =>
+            r.ustensils.some((u) => u.name === ust)
+          )
+        ) {
           return false;
         }
       }
